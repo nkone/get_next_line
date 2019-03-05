@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:25 by phtruong          #+#    #+#             */
-/*   Updated: 2019/02/24 13:29:53 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/05 15:08:04 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
+# include <fcntl.h>
 
 # include "ft_string.h"
 # include "ft_ctype.h"

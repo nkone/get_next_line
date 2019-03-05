@@ -6,7 +6,7 @@
 #    By: phtruong <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/05 21:46:13 by phtruong          #+#    #+#              #
-#    Updated: 2019/02/25 21:50:42 by phtruong         ###   ########.fr        #
+#    Updated: 2019/03/05 14:18:45 by phtruong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ CFLAGS = -Werror -Wall -Wextra -c
 OBJ = *.o
 SRC = ft_atoi.c \
 	  ft_bzero.c \
-	  ft_ctype.h \
 	  ft_hialpha.c \
 	  ft_isalnum.c \
 	  ft_isalpha.c \
