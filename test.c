@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 19:36:02 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/03 19:06:19 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/04 09:34:07 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int	read_me(const int fd, char **line)
 	}
 	return (token_me(&tmp[fd], line));
 }	
-*/
+*//*
 int	get_next_line(const int fd, char **line)
 {
 	char	buffer[BUFF_SIZE + 1];
@@ -193,7 +193,7 @@ int	get_next_line(const int fd, char **line)
 	}
 	return (1);
 }
-
+*/
 int	main(int argc, char **argv)
 {
 	int fd;
@@ -208,7 +208,7 @@ int	main(int argc, char **argv)
 		printf("Line: |%s|\n", line);
 		free(line);
 	}
-//	while (1){}
+	while (1){}
 	if (argc == 2)
 		close(fd);
 	return (0);
