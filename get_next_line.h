@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 10:05:30 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/04 09:32:09 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/05 15:07:23 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 # define GET_NEXT_LINE_H
 
 # include "./libft/libft.h"
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <fcntl.h>
 # define BUFF_SIZE 10
 # define FD_LIMIT 1024
 
