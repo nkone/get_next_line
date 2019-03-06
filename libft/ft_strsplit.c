@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 09:57:51 by phtruong          #+#    #+#             */
-/*   Updated: 2019/02/24 13:01:21 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/04 08:16:23 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**ft_strsplit(char const *s, char c)
 	if (!s)
 		return (NULL);
 	w_count = ft_strtok_ntokens(s, &c);
-	s_copy = (char *)malloc(ft_strlen(s) * sizeof(char *));
+	s_copy = (char *)malloc(ft_strlen(s) * sizeof(char));
 	if (!(s_array = (char **)malloc(w_count * sizeof(char *) + 1)))
 		return (NULL);
 	ft_strcpy(s_copy, s);
@@ -61,7 +61,7 @@ char	**ft_strsplit(char const *s, char c)
 	i = 0;
 	while (i < w_count && token != NULL)
 	{
-		s_array[i] = (char *)malloc(ft_strlen(token) * sizeof(char *));
+		s_array[i] = (char *)malloc(ft_strlen(token) * sizeof(char));
 		ft_strcpy(s_array[i], token);
 		token = ft_strtok_r(s_copy, &c, &s_copy);
 		i++;

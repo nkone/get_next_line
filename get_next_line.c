@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 19:21:36 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/05 15:13:55 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/06 14:23:40 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 ** otherwise -1, indicating error.
 ** Find a way to null-termintate garbages.✓
 ** Maybe forget bonus✓
-** Check for FD_LIMIT
-** Make test for two/ may be three files
+** Check for FD_LIMIT✓
+** Make test for two/ may be three files ø
+** Add fd for token_me function so I can access index directly ø 
 */
 
 #include "get_next_line.h"
