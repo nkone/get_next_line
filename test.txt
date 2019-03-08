@@ -1,0 +1,4 @@
+How are you doing?
+What is your name?
+The weather is nice today isn't it?
+We should go for a walk.

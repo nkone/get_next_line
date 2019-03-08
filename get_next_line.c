@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 19:21:36 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/06 14:23:40 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/07 20:30:23 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,30 @@
 */
 
 #include "get_next_line.h"
-#include "./libft/libft.h"
 
-int	token_me(char **tmp, char **line)
+int	token_me(char **tmp, char **line, int fd)
 {
 	char *tmp_h;
 	char *token;
 
-	if (!**tmp)
+	if (!*tmp[fd])
 		return (0);
-	token = ft_strtok_r(*tmp, "\n", &*tmp);
+	token = ft_strtok_r(tmp[fd], "\n", &tmp[fd]);
 	if (token != NULL)
 	{
 		*line = ft_strdup(token);
-		tmp_h = ft_strdup(*tmp);
+		tmp_h = ft_strdup(tmp[fd]);
 		if (tmp_h)
 		{
-			*tmp = ft_strdup(tmp_h);
+			tmp[fd] = ft_strdup(tmp_h);
 			free(tmp_h);
 		}
 		free(token);
 	}
 	else
 	{
-		*line = ft_strdup(*tmp);
-		ft_strclr(*tmp);
+		*line = ft_strdup(tmp[fd]);
+		ft_strclr(tmp[fd]);
 	}
 	return (1);
 }
@@ -80,5 +79,5 @@ int	get_next_line(const int fd, char **line)
 			tmp[fd] = ft_strnew(0);
 		free(tmp_h);
 	}
-	return (token_me(&tmp[fd], line));
+	return (token_me(tmp, line, fd));
 }
