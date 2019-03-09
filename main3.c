@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/27 10:05:30 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/09 12:55:39 by phtruong         ###   ########.fr       */
+/*   Created: 2019/03/09 13:07:58 by phtruong          #+#    #+#             */
+/*   Updated: 2019/03/09 13:37:25 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
 
-# include "./libft/libft.h"
-# define BUFF_SIZE 1
-# define FD_LIMIT 1024
+/*
+ * Test big fat line 60k of characters
+ */
 
-int		get_next_line(int const fd, char **line);
+int main()
+{
+	int fd;
+	char *line;
+	char *filename;
 
-#endif
+	filename = "./one_big_fat_line.txt";
+	fd = open(filename, O_RDONLY);
+	get_next_line(fd, &line);
+	close(fd);
+	return (0);
+}

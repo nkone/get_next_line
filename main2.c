@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 20:38:28 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/09 13:56:07 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/09 13:38:23 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,53 @@
 #include "get_next_line.h"
 
 /*
- * Multiple files test
- * i.txt has numbers for index
- * q.txt has questions
- * a.txt has answers
+ * Similar test to moulitest
+ * Not sure why moulitest has "free" error
  */
 
 int main()
 {
 	int fd;
 	int fd2;
-	int fd3;
 	char *line;
 	char *line2;
-	char *line3;
 	char *fname;
 	char *fname2;
-	char *fname3;
+	int	ret, ret2;
 
 	fd = 0;
 	fd2 = 0;
-	fname = "./i.txt";
-	fname2 = "./q.txt";
-	fname3 = "./a.txt";
+	fname = "./test.txt";
+	fname2 = "./test2.txt";
 	fd = open(fname, O_RDONLY);
 	fd2 = open(fname2, O_RDONLY);
-	fd3 = open(fname3, O_RDONLY);
-	printf("fd: %d fd2: %d fd3: %d\n", fd, fd2, fd3);
+	printf("fd: %d\n", fd);
+	printf("fd2: %d\n", fd2);
 	/*
 	 * Read with fd and print
 	 */
-	while(get_next_line(fd, &line) > 0)
-		{
-			//printf("|#%s.| ", line);
-			if (get_next_line(fd2, &line2) > 0)
-				{
-					printf("Question %s: |%s|\n", line, line2);
-					free(line);
-					free(line2);
-					if (get_next_line(fd3, &line3) > 0)
-						printf("Answer: |%s|\n", line3);
-					free(line3);
-				}
-		}
+	if (fd > 2 && fd2 > 2)
+	{
+		line = NULL;
+		line2 = NULL;
+		
+		ret = get_next_line(fd, &line);
+		if (ret!= 1)
+			printf("error");
+		printf("Line [fd]: |%s|\n", line);
+		ret = get_next_line(fd, &line);
+		if (ret != 1)
+			printf("error");
+		printf("Line [fd]: |%s|\n", line);
+		ret2 = get_next_line(fd2, &line2);
+		if (ret2 != 1)
+			printf("error");
+		printf("Line [fd2]: |%s|\n", line2);
+		ret2 = get_next_line(fd2, &line2);
+		if (ret2 != 1)
+			printf("error");
+		printf("Line [fd2]: |%s|\n", line2);
+	}
 	while(1){} // leaks checking
 	close(fd);
 	close(fd2);
