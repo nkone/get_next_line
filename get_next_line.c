@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 19:21:36 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/07 20:30:23 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/09 13:42:08 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,21 @@
 ** Find a way to null-termintate garbages.✓
 ** Maybe forget bonus✓
 ** Check for FD_LIMIT✓
-** Make test for two/ may be three files ø
-** Add fd for token_me function so I can access index directly ø 
+** Make test for two/ may be three files ✓
+** Add fd for token_me function so I can access index directly ✓
 */
 
 #include "get_next_line.h"
+
+/*
+** PSEUDOCODE
+** Collects input from main function
+** Check if array is null
+** Cut into tokens based on newline
+** Copy token into line
+** Copy what's left over into middle ground to free
+** Free token pointer
+*/
 
 int	token_me(char **tmp, char **line, int fd)
 {
@@ -45,15 +55,22 @@ int	token_me(char **tmp, char **line, int fd)
 			tmp[fd] = ft_strdup(tmp_h);
 			free(tmp_h);
 		}
-		free(token);
 	}
 	else
-	{
 		*line = ft_strdup(tmp[fd]);
-		ft_strclr(tmp[fd]);
-	}
+	free(token);
 	return (1);
 }
+
+/*
+** PSEUDOCODE
+** Check for fd false cases, FD_LIMIT (use ulimit -a to check)
+** Allocate new memory to read string into static array
+** While checking for newline in that array
+** Read into and join what has read into that array
+** Free using middle ground tmp_h (copy back and forth)
+** Extend the fucntion
+*/
 
 int	get_next_line(const int fd, char **line)
 {
@@ -72,11 +89,8 @@ int	get_next_line(const int fd, char **line)
 		buffer[n_bytes] = '\0';
 		if (n_bytes == 0)
 			break ;
-		tmp_h = ft_strjoin(tmp[fd], buffer);
-		free(tmp[fd]);
-		tmp[fd] = ft_strdup(tmp_h);
-		if (!(tmp[fd]))
-			tmp[fd] = ft_strnew(0);
+		tmp_h = tmp[fd];
+		tmp[fd] = ft_strjoin(tmp[fd], buffer);
 		free(tmp_h);
 	}
 	return (token_me(tmp, line, fd));
