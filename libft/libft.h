@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:40:25 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/05 19:00:36 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/09 13:26:18 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
+# include <fcntl.h>
 
 typedef struct		s_list
 {
