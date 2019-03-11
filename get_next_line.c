@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 19:21:36 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/09 13:42:08 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:16:13 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,60 +16,92 @@
 */
 
 /*
-** GENERAL INFO
+** WORK CHECKLIST
 ** read function returns a non-negative integer indicating no. bytes read
-** otherwise -1, indicating error.
+** otherwise -1, indicating error.✓
 ** Find a way to null-termintate garbages.✓
-** Maybe forget bonus✓
 ** Check for FD_LIMIT✓
 ** Make test for two/ may be three files ✓
 ** Add fd for token_me function so I can access index directly ✓
+** Note to self:
+** Token does not work for empty line, since strtok null terminates all delims
+** Freeing token is dangerous, ran into multiple errors if not handle correctly
+** ex. pointer cannot be free because it's not allocated.
+** ft_strclr is does not free.
+** char *s = ft_strnew(0) is not same as char *s = "";
+** Pointer arithmetic is useful to navigate around strings.
+** Since strchr returns a string, similar to pointer arithmetic,
+** by adding int value to it, it's possible to copy from that position,
+** Useful for bypassing '\0' or any certain characters.
 */
 
 #include "get_next_line.h"
 
 /*
-** PSEUDOCODE
-** Collects input from main function
-** Check if array is null
-** Cut into tokens based on newline
-** Copy token into line
-** Copy what's left over into middle ground to free
-** Free token pointer
+** ret_line()
+** Takes in the variables from get_next_line and return line.
+** ===========================================================
+** Before separating the newline:
+** Check for what was read, if the array[fd] is empty, meaning
+** nothing is read nor done, return 0.
+** Main function description:
+** Check if the array[fd] has a newline
+** If there is one:
+** Set that '\n' to '\0', then duplicate
+** the null-terminated array[fd] to line.
+** Even if the string is null-terminated, there are 'hidden' left over
+** behind the null. Thus, using a temp pointer, duplicate everything
+** behind that null marker that was set earlier to the pointer.
+** Free array[fd] so it can points a new string, resulting from
+** string duplication of temp pointer earlier.
+** Free the temp pointer.
+** If there is none:
+** Simply point line to a new string, resulting from string duplication
+** of array[fd]. Then, clear the array after.
 */
 
-int	token_me(char **tmp, char **line, int fd)
+int	ret_line(char **tmp, char **line, int fd)
 {
 	char *tmp_h;
-	char *token;
 
 	if (!*tmp[fd])
 		return (0);
-	token = ft_strtok_r(tmp[fd], "\n", &tmp[fd]);
-	if (token != NULL)
+	if (ft_strchr(tmp[fd], '\n'))
 	{
-		*line = ft_strdup(token);
-		tmp_h = ft_strdup(tmp[fd]);
-		if (tmp_h)
-		{
-			tmp[fd] = ft_strdup(tmp_h);
-			free(tmp_h);
-		}
+		*(tmp[fd] + ft_strcspn(tmp[fd], "\n")) = '\0';
+		*line = ft_strdup(tmp[fd]);
+		tmp_h = ft_strdup(ft_strchr(tmp[fd], '\0') + 1);
+		free(tmp[fd]);
+		tmp[fd] = ft_strdup(tmp_h);
+		free(tmp_h);
 	}
 	else
+	{
 		*line = ft_strdup(tmp[fd]);
-	free(token);
+		ft_strclr(tmp[fd]);
+	}
 	return (1);
 }
 
 /*
-** PSEUDOCODE
-** Check for fd false cases, FD_LIMIT (use ulimit -a to check)
-** Allocate new memory to read string into static array
-** While checking for newline in that array
-** Read into and join what has read into that array
-** Free using middle ground tmp_h (copy back and forth)
-** Extend the fucntion
+** GNL(get next line)
+** Return a line up to a new line read with a file descriptor
+** =============================================================
+** Before the main function:
+** Check for valid input of fd or read for errors. Return -1 if so.
+** Main function description:
+** Using fd as index, if our array is empty, allocate memory in a
+** static array using fd as index.
+** While checking for a newline '\n' in that array,
+** read and join what's read into that array w/ user defined buff size.
+** Using the return of read as index, null-terminate the buffer,
+** declaring all the characters that has been read.
+** If nothing is read then break out of the loop.
+** Before copying the buffer to our main array, with a temp pointer,
+** point it to our array[fd] earlier so we can free it later.
+** Join the buffer and the value of our pointer to update array[fd]
+** Free the old array[fd] by freeing the pointer.
+** Pass the main array, line, and fd value to use next in ret_line().
 */
 
 int	get_next_line(const int fd, char **line)
@@ -83,15 +115,15 @@ int	get_next_line(const int fd, char **line)
 		return (-1);
 	if (!(tmp[fd]))
 		tmp[fd] = ft_strnew(0);
-	while (ft_strchr(tmp[fd], '\n') == NULL)
+	while (!(ft_strchr(tmp[fd], '\n')))
 	{
 		n_bytes = read(fd, buffer, BUFF_SIZE);
 		buffer[n_bytes] = '\0';
 		if (n_bytes == 0)
 			break ;
 		tmp_h = tmp[fd];
-		tmp[fd] = ft_strjoin(tmp[fd], buffer);
+		tmp[fd] = ft_strjoin(tmp_h, buffer);
 		free(tmp_h);
 	}
-	return (token_me(tmp, line, fd));
+	return (ret_line(tmp, line, fd));
 }
