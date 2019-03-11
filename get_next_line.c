@@ -6,7 +6,7 @@
 /*   By: phtruong <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 19:21:36 by phtruong          #+#    #+#             */
-/*   Updated: 2019/03/11 16:16:13 by phtruong         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:29:39 by phtruong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 
 /*
 ** ret_line()
-** Takes in the variables from get_next_line and return line.
+** Takes in the variables from gnl and return 1 if line exists
 ** ===========================================================
 ** Before separating the newline:
 ** Check for what was read, if the array[fd] is empty, meaning
@@ -47,11 +47,11 @@
 ** Main function description:
 ** Check if the array[fd] has a newline
 ** If there is one:
-** Set that '\n' to '\0', then duplicate
-** the null-terminated array[fd] to line.
+** Set that '\n' to '\0', then point line to a new string, resulting from
+** string duplication of the null-terminated array[fd].
 ** Even if the string is null-terminated, there are 'hidden' left over
-** behind the null. Thus, using a temp pointer, duplicate everything
-** behind that null marker that was set earlier to the pointer.
+** behind the null. Thus, using a temp pointer, point it to a string
+** resulting from duplicating everything left over behind that null marker.
 ** Free array[fd] so it can points a new string, resulting from
 ** string duplication of temp pointer earlier.
 ** Free the temp pointer.
